@@ -1,7 +1,5 @@
 package com.pb.sssp.entity;
 
-import org.springframework.cache.annotation.Cacheable;
-
 import javax.persistence.*;
 
 /**

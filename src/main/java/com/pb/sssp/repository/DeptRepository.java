@@ -15,7 +15,7 @@ import java.util.List;
 public interface DeptRepository extends JpaRepository<Department, Integer> {
 
     @QueryHints({@QueryHint(name = org.hibernate.jpa.QueryHints.HINT_CACHEABLE, value = "true")})
-    @Query("FROM SSSP_DEPARTMENT d")
+    @Query("FROM Department d")
     List<Department> getAll();
 
 }

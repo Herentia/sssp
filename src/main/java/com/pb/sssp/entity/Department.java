@@ -1,11 +1,14 @@
 package com.pb.sssp.entity;
 
+import org.springframework.cache.annotation.Cacheable;
+
 import javax.persistence.*;
 
 /**
  * @author haohan
  * 01/07/2019 - 03:27 下午
  */
+@Cacheable
 @Table(name = "sssp_department")
 @Entity
 public class Department {

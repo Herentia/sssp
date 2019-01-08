@@ -67,7 +67,7 @@ public class Employee {
         this.createTime = createTime;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     public Department getDepartment() {
         return department;

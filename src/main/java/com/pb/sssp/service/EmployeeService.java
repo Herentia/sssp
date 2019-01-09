@@ -8,6 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+
 /**
  * @author haohan
  * 01/08/2019 - 03:25 下午
@@ -16,6 +18,24 @@ import org.springframework.transaction.annotation.Transactional;
 public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    public void delEmp(Integer id) {
+        employeeRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public Employee getEmp(Integer id) {
+        Employee employee = employeeRepository.getOne(id);
+        return employee;
+    }
+
+    @Transactional
+    public void saveEmp(Employee employee) {
+        if(employee.getId() == null) {
+            employee.setCreateTime(new Date());
+        }
+        employeeRepository.saveAndFlush(employee);
+    }
 
     @Transactional
     public Page<Employee> getEmp(Integer pageNo, Integer pageSize) {

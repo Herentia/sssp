@@ -11,8 +11,30 @@
 <html>
 <head>
     <title>员工信息页面</title>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/script/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $(".delete").click(function() {
+                var label = $(this).next(":hidden").val();
+                var flag = confirm("确定要删除" + label + "的信息吗？")
+                if(flag) {
+                    var url = $(this).attr("href");
+
+                    $("#_form").attr("action", url);
+                    $("#_method").val("delete");
+                    $("#_form").submit();
+                }
+                return false;
+            })
+        })
+    </script>
 </head>
 <body>
+
+    <form action="" method="post" id="_form">
+        <input type="hidden" id="_method" name="_method" />
+    </form>
+
     <c:if test="${emps == null || emps.numberOfElements == 0}">
         没有任何记录
     </c:if>
@@ -40,8 +62,11 @@
                         <fmt:formatDate value="${emp.createTime}" pattern="yyyy-MM-dd hh:mm:ss" />
                     </td>
                     <td>${emp.department.deptName}</td>
-                    <td><a href="#"> Edit </a></td>
-                    <td><a href="#"> Delete </a></td>
+                    <td><a href="${pageContext.request.contextPath}/input/${emp.id}"> Edit </a></td>
+                    <td>
+                        <a href="${pageContext.request.contextPath}/input/${emp.id}" class="delete"> Delete </a>
+                        <input type="hidden" value="${emp.lastName}"/>
+                    </td>
                 </tr>
             </c:forEach>
             <tr>
@@ -54,6 +79,7 @@
                 </td>
             </tr>
         </table>
+        <a href="<%=request.getContextPath()%>/input">增加员工</a>
     </c:if>
 </body>
 </html>
